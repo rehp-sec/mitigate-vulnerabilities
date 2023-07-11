@@ -1,8 +1,7 @@
 #!/bin/bash
 
-
 # Buscar el archivo de configuración
-config_file=$(find / -name "ssl.conf" 2>/dev/null)
+config_file=$(find / -name "ssl.conf" 2>/dev/null | head -n 1)
 
 # Verificar si se encontró el archivo
 if [ -z "$config_file" ]; then
@@ -11,7 +10,7 @@ if [ -z "$config_file" ]; then
 fi
 
 # Editar el archivo de configuración
-sed -i 's/^\(SSLProtocol .*\)$/SSLProtocol all -SSLv3 -TLSv1 -TLSv1.1/' "$config_file"
+sed -i '/^\s*SSLProtocol all -SSLv3/c\        SSLProtocol all -SSLv3 -TLSv1 -TLSv1.1' "$config_file"
 
 # Reiniciar el servicio de Apache2
 service apache2 restart
