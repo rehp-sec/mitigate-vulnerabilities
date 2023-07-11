@@ -2,7 +2,7 @@
 
 
 # Buscar el archivo de configuración
-config_file=$(find / -name "ssl.conf" -o -name "httpd-ssl.conf" 2>/dev/null)
+config_file=$(find / -name "ssl.conf" 2>/dev/null)
 
 # Verificar si se encontró el archivo
 if [ -z "$config_file" ]; then
